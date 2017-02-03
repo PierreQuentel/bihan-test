@@ -262,8 +262,6 @@ class application(http.server.SimpleHTTPRequestHandler):
                     except AttributeError:
                         importlib.reload(module)
         mapping = {}
-        if not hasattr(cls, 'modules'):
-            raise AttributeError('no modules in {} {}'.format(cls, str(dir(cls))))
         for module in cls.modules:
             prefix = ""
             if hasattr(module, "__prefix__"):
