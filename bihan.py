@@ -49,6 +49,7 @@ class Dialog:
 class application(http.server.SimpleHTTPRequestHandler):
 
     debug = True
+    modules = []
     root = os.getcwd()
     patterns = {}
 
@@ -114,7 +115,6 @@ class application(http.server.SimpleHTTPRequestHandler):
         
         def __exit__(self, exc_type, exc_val, exc_tb):
             """Store the modules that will be used to serve urls"""
-            print(exc_type, exc_val, exc_tb)
             application.modules = [mod for name, mod in sys.modules.items() 
                 if not name in self.modules
                 and hasattr(mod, "__file__")
@@ -263,7 +263,7 @@ class application(http.server.SimpleHTTPRequestHandler):
                         importlib.reload(module)
         mapping = {}
         if not hasattr(cls, 'modules'):
-            print('no modules', cls, dir(cls))
+            raise AttributeError('no modules in {} {}'.format(cls, str(dir(cls))))
         for module in cls.modules:
             prefix = ""
             if hasattr(module, "__prefix__"):
