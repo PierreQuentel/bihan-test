@@ -1,2 +1,1 @@
-# bihan-test
-Test of web framework bihan
+# Test of bihan on OpenShift
