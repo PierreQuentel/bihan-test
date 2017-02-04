@@ -126,8 +126,7 @@ class application(http.server.SimpleHTTPRequestHandler):
             # run load_routes to check if there are duplicate urls
             with open('trace.txt', 'a', encoding='utf-8') as out:
                 out.write('exit Register\n')
-                out.write(str(application.modules))
-            application.load_routes()
+                out.write(str(application.modules)+'\n')
 
     register = Register()
 
@@ -270,6 +269,7 @@ class application(http.server.SimpleHTTPRequestHandler):
                         imp.reload(module) # deprecated in version 3.4
                     except AttributeError:
                         importlib.reload(module)
+
         mapping = {}
         for module in cls.modules:
             prefix = ""
