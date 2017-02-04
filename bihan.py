@@ -256,6 +256,10 @@ class application(http.server.SimpleHTTPRequestHandler):
         scripts and callables
         """
         # on debug mode, reload all modules in application folders
+        with open('trace.txt', 'a', encoding='utf-8') as out:
+            out.write('enter load_routes, debug {}, modules {}\n'.format(
+                str(cls.debug), str(cls.modules)))
+        
         if cls.debug:
             for name, module in sys.modules.items():
                 if name == "__main__":
