@@ -112,6 +112,8 @@ class application(http.server.SimpleHTTPRequestHandler):
             """Store list of imported modules when entering the "with" block
             """
             self.modules = list(sys.modules)
+            with open('trace.txt', 'a', encoding='utf-8') as out:
+                out.write('enter Register\n')
         
         def __exit__(self, exc_type, exc_val, exc_tb):
             """Store the modules that will be used to serve urls"""
@@ -122,6 +124,9 @@ class application(http.server.SimpleHTTPRequestHandler):
                 and not getattr(mod, "__exclude__", False)
             ]
             # run load_routes to check if there are duplicate urls
+            with open('trace.txt', 'a', encoding='utf-8') as out:
+                out.write('exit Register\n')
+                out.write(str(application.modules))
             application.load_routes()
 
     register = Register()
